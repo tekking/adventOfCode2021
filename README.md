@@ -1,1 +1,1 @@
-"# adventOfCode2021" 
+Advent of code 2021 as motivation for picking up Python
