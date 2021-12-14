@@ -1,6 +1,6 @@
 import Utility
 
-part1FilePath = 'input/day03/part1.txt'
+filePath = 'input/day03/part1.txt'
 
 
 def findMostCommonBit(inputLines, index):
@@ -12,7 +12,7 @@ def findMostCommonBit(inputLines, index):
 
 
 def solvePart1():
-    inputLines = Utility.getLinesFromFile(part1FilePath)
+    inputLines = Utility.getLinesFromFile(filePath)
     gamma, epsilon = 0, 0
 
     mostCommonBits = ''
@@ -33,7 +33,7 @@ def solvePart1():
 
 
 def solvePart2():
-    inputLines = Utility.getLinesFromFile(part1FilePath)
+    inputLines = Utility.getLinesFromFile(filePath)
     oxygen, co2 = 0, 0
     oxygenLines = inputLines.copy()
     co2Lines = inputLines.copy()

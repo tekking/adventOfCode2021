@@ -1,10 +1,10 @@
 from Utility import *
 
-part1FilePath = 'input/day01/part1.txt'
+filePath = 'input/day01/part1.txt'
 
 
 def solvePart1():
-    inputLines = getLinesFromFile(part1FilePath)
+    inputLines = getLinesFromFile(filePath)
     values = list(map(int, inputLines))
     numberOfIncreases = 0
     for i, line in enumerate(values[1:]):
@@ -15,7 +15,7 @@ def solvePart1():
 
 
 def solvePart2():
-    inputLines = getLinesFromFile(part1FilePath)
+    inputLines = getLinesFromFile(filePath)
     values = list(map(int, inputLines))
 
     def calculateSlidingWindow(index):

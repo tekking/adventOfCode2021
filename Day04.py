@@ -1,6 +1,6 @@
 import Utility
 
-part1FilePath = 'input/day04/part1.txt'
+filePath = 'input/day04/part1.txt'
 
 
 class Board:
@@ -75,7 +75,7 @@ def findLastWinningBoardAndNumber(numbers: list[int], boards: list[Board]) -> tu
 
 
 def solvePart1():
-    inputLines = Utility.getLinesFromFile(part1FilePath)
+    inputLines = Utility.getLinesFromFile(filePath)
     numbers = getNumbersFromInput(inputLines[0])
     boards = getBoardsFromInput(inputLines[2:])
 
@@ -86,7 +86,7 @@ def solvePart1():
 
 
 def solvePart2():
-    inputLines = Utility.getLinesFromFile(part1FilePath)
+    inputLines = Utility.getLinesFromFile(filePath)
     numbers = getNumbersFromInput(inputLines[0])
     boards = getBoardsFromInput(inputLines[2:])
 
