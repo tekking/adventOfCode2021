@@ -1,10 +1,10 @@
 from Utility import *
 
-part1FilePath = 'input/day02/part1.txt'
+filePath = 'input/day02/part1.txt'
 
 
 def solvePart1():
-    inputLines = getLinesFromFile(part1FilePath)
+    inputLines = getLinesFromFile(filePath)
     x, y = 0, 0
     for line in inputLines:
         if(line.startswith('forward')):
@@ -20,7 +20,7 @@ def solvePart1():
 
 
 def solvePart2():
-    inputLines = getLinesFromFile(part1FilePath)
+    inputLines = getLinesFromFile(filePath)
     x, y, aim = 0, 0, 0
     for line in inputLines:
         value = int(line.split(' ')[1])
