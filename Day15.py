@@ -1,6 +1,7 @@
 import Utility
 from collections import deque
 import time
+import cProfile
 
 filePath = 'input/day15/part1.txt'
 
@@ -10,24 +11,15 @@ class Cave:
         pass
 
     def initializeNormal(self):
+        self.initializeExpanded()
+
+    def initializeExpanded(self, repeats = 1):
         inputLines = Utility.getLinesFromFile(filePath)
         self.layout = []
-        for l in inputLines:
-            row = []
-            for c in l:
-                row.append(int(c))
-            self.layout.append(row)
-
-        self.height = len(self.layout)
-        self.width = len(self.layout[0])
-
-    def initializeExpanded(self):
-        inputLines = Utility.getLinesFromFile(filePath)
-        self.layout = []
-        for i in range(5):
+        for i in range(repeats):
             for l in inputLines:
                 row = []
-                for j in range(5):
+                for j in range(repeats):
                     for c in l:
                         rawValue = int(c)
                         realValue = ((rawValue + i + j - 1) % 9) + 1
@@ -36,6 +28,13 @@ class Cave:
 
         self.height = len(self.layout)
         self.width = len(self.layout[0])
+        self.setupNeighborLookup()
+
+    def setupNeighborLookup(self):
+        self.neighborLookup = [[[] for i in range(self.width)] for i in range(self.height)]
+        for y in range(self.height):
+            for x in range(self.width):
+                self.neighborLookup[y][x] = self.getNeighbors(y, x)
 
     def getNeighbors(self, y, x):
         results = []
@@ -62,12 +61,11 @@ class Cave:
             elementCost = self.layout[ey][ex]
             elementPathCost = pathLengthMap[ey][ex]
             sumCost = elementCost + elementPathCost
-            neighbors = self.getNeighbors(ey, ex)
+            neighbors = self.neighborLookup[ey][ex]
             for ny, nx in neighbors:
                 if sumCost < pathLengthMap[ny][nx]:
                     pathLengthMap[ny][nx] = sumCost
                     queue.append((ny, nx))
-                    ny = 5
 
         # with open("lengthmap.txt", 'w+') as file:
         #     for row in pathLengthMap:
@@ -98,7 +96,6 @@ class Cave:
                 if sumCost < pathLengthMap[ny][nx]:
                     pathLengthMap[ny][nx] = sumCost
                     stack.add((ny, nx))
-                    ny = 5
 
         # with open("lengthmap.txt", 'w+') as file:
         #     for row in pathLengthMap:
@@ -126,7 +123,7 @@ def solvePart1():
 
 def solvePart2():
     cave = Cave()
-    cave.initializeExpanded()
+    cave.initializeExpanded(5)
 
     t = time.process_time()
     shortestPathLength = cave.findShortestPathLengthQueue()
@@ -139,3 +136,6 @@ def solvePart2():
 if(__name__ == '__main__'):
     solvePart1()
     solvePart2()
+
+    # cProfile.run('solvePart1()')
+    # cProfile.run('solvePart2()')
