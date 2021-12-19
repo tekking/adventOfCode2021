@@ -57,7 +57,7 @@ def findValidAngleCount(target: Target) -> int:
     maxXSpeed = target.xMax
     minXSpeed = 1 # suboptimal
     minYSpeed = target.yMin
-    maxYSpeed = target.xMax # ? is there even an guaranteed optimal for all inputs?
+    maxYSpeed = -1 * target.yMin # due to arc y>0 being symmetrical
 
     validCount = 0
     for xV in range(minXSpeed, maxXSpeed + 1):
