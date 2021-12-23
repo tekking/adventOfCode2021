@@ -1,14 +1,14 @@
 from __future__ import annotations
 from os import stat
 import Utility
-import bisect
+import cProfile
 
 # 'turn':
 #   1: Check if any amphi can move into its final room
 #   2: Move a amphi from its start into a hallway position
 #   No other possible moves?
-#   This implemntation became horror...
-#   runtime part2 = ~2 min, probably very suboptimal
+#   This implemntation became a bit of horror...
+#   runtime part2 = ~8 sec
 
 filePath = 'input/day23/part1.txt'
 
@@ -437,7 +437,6 @@ class DeeperState:
         return ''.join(lines)
 
 def solvePart1():
-    return
     startState = State().initializeFromInput()
     stateCandidates = [startState]
     bestFinishCost = 99999999999
@@ -447,14 +446,9 @@ def solvePart1():
     while(True):
         if len(stateCandidates) == 0:
             break
-        cheapestState = Utility.minBy(
-            stateCandidates, lambda state: state.cost)
-        stateCandidates.remove(cheapestState)
+        state = stateCandidates.pop()
 
-        if cheapestState.cost > bestFinishCost:
-            break
-
-        newStates = cheapestState.iterateFromState()
+        newStates = state.iterateFromState()
         for n in newStates:
             if n.isFinished():
                 if n.cost < bestFinishCost:
@@ -478,27 +472,17 @@ def solvePart2():
 
     passedStates = {startState.placesRepr(): 0}
 
-    printCount = 0
     while(True):
         if len(stateCandidates) == 0:
             break
-        cheapestState = Utility.minBy(
-            stateCandidates, lambda state: state.cost)
-        stateCandidates.remove(cheapestState)
+        state = stateCandidates.pop()
         
-        stateRepr = cheapestState.placesRepr()
+        stateRepr = state.placesRepr()
         knownCost = passedStates.get(stateRepr, 9999999999)
-        if knownCost < cheapestState.cost:
+        if knownCost < state.cost:
             continue
 
-        printCount += 1
-        if printCount % 100 == 0:
-            print(cheapestState.cost)
-
-        if cheapestState.cost > bestFinishCost:
-            break
-
-        newStates = cheapestState.iterateFromState()
+        newStates = state.iterateFromState()
         for n in newStates:
             if n.isFinished():
                 if n.cost < bestFinishCost:
@@ -518,3 +502,4 @@ def solvePart2():
 if(__name__ == '__main__'):
     solvePart1()
     solvePart2()
+    # cProfile.run('solvePart2()')
