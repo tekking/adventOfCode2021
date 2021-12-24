@@ -1,0 +1,226 @@
+inp w # w = i1
+eql x 0 # x = 1
+add y w # y = i1
+add y 4 # y = i1 + 4
+add z y # z = i1 + 4
+
+inp w # w = i2
+mul z 26 # z = 26 * (i1 + 4)
+mul y 0 # y = 0
+add y w # y = i2
+add y 16 # y = i2 + 16
+add z y # z = 26 * (i1 + 4) + i2 + 16
+
+inp w # w = i3
+mul x 0 # x = 0
+eql x 0 # x = 1
+mul y 0 # y = 0
+mul z 26 # z = (26 * (i1 + 4) + i2 + 16) * 26
+add y w # y = i3
+add y 14 # y = i3 + 14
+add z y # z = (26 * (i1 + 4) + i2 + 16) * 26 + i3 + 14
+
+inp w # w = i4
+mul x 0 # x = 0
+add x z # x = (26 * (i1 + 4) + i2 + 16) * 26 + i3 + 14
+mod x 26 # x = i1 + 4 + i2 + 16 + i3 + 14 % 26
+div z 26 # z = ((26 * (i1 + 4) + i2 + 16) * 26 + i3 + 14) / 26
+add x -13 # x = (i1 + 4 + i2 + 16 + i3 + 14 % 26) - 13
+eql x w # x = 1 or 0
+eql x 0 # x = 1 or 0
+mul y 0 # y = 0
+add y 25 # y = 25
+mul y x # y = 25 or 0
+add y 1 # y = 26 or 1
+mul z y # z = ((26 * (i1 + 4) + i2 + 16) * 26 + i3 + 14) / 26 or _*26
+mul y 0 # y = 0
+add y w # y = i4
+add y 3 # y = i4 + 3
+mul y x # y = i4 + 3 or 0
+add z y # z = ??
+
+inp w # w = i5
+mul x 0 # x = 0
+add x z # x = ??
+mod x 26
+add x 14
+eql x w
+eql x 0
+mul y 0 # y = 0
+add y 25 # y = 25
+mul y x
+add y 1
+mul z y
+mul y 0 # y = 0
+add y w
+add y 11
+mul y x
+add z y
+
+inp w # w = i6
+mul x 0
+add x z
+mod x 26
+add x 15
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 13
+mul y x
+add z y
+
+inp w # w = i7
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -7
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 11
+mul y x
+add z y
+
+inp w # w = i8
+mul x 0
+add x z
+mod x 26
+add x 10
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 7
+mul y x
+add z y
+
+inp w # w = i9
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 12
+mul y x
+add z y
+
+inp w # w = i10
+mul x 0
+add x z
+mod x 26
+add x 15
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 15
+mul y x
+add z y
+
+inp w # w = i11
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -16
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 13
+mul y x
+add z y
+
+inp w # w = i12
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -9
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 1
+mul y x
+add z y
+
+inp w # w = i13
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -8
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0 # y = 0
+add y w # y = i13
+add y 15 # y = i13 + 15
+mul y x # y = i13 + 15 or 0
+add z y # z = z + i13 + 15 or z
+
+inp w # w = i14
+mul x 0 # x = 0
+add x z # x = z
+mod x 26 # x = z % 26
+div z 26 # z = z // 26
+add x -8 # x = z % 26 - 8
+eql x w # x = 1 or 0
+eql x 0 # x = 0 or 1
+mul y 0 # y = 0
+add y 25 # y = 25
+mul y x # y = 25 or 0
+add y 1 # y = 26 or 1
+mul z y # z = z*26 or z
+mul y 0 # y = 0
+add y w # y = i14
+add y 4 # y = i14 + 4
+mul y x # y = i14 + 4 or 0 -> y >= 0 always
+add z y # z == -y
